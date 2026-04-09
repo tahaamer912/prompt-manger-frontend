@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Library - Prompt App</title>
+  <link rel="stylesheet" href="../../css/style.css">
+
+</head>
+<body>
+
+<div class="dashboard-layout">
+  <div class="sidebar-container"></div>
+
+  <div class="main-wrapper">
+    <header class="dashboard-header">
+      <div class="header-title">
+        <h1>Public Library</h1>
+      </div>
+    </header>
+    
+    <main class="content-area">
+      <div class="content-container">
+        <div class="search-wrapper" style="display: flex; justify-content: center; gap: 12px; align-items: center; width: 100%; flex-wrap: wrap; margin-bottom: 24px;">
+          <input type="text" id="search" class="search-input" placeholder="Search public prompts..." oninput="loadPublicPrompts()" style="flex: 1; min-width: 250px; max-width: 500px;">
+          <select id="categoryFilter" class="form-control" onchange="loadPublicPrompts()" style="width: auto; min-width: 160px; padding: 10px 16px;">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+
+        <div id="publicPrompts" class="grid-container">
+          <!-- Public prompts will be loaded here -->
+        </div>
+
+        <div id="pagination" class="pagination"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../../js/data/categories.js"></script>
+<script src="../../js/data/prompts.js"></script>
+<script src="../../js/utils.js"></script>
+<script src="../../js/components.js"></script>
+<script src="public.js"></script>
+</body>
+</html>

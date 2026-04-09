@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics - Prompt App</title>
+  <link rel="stylesheet" href="../../css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="dashboard-layout">
+  <div class="sidebar-container"></div>
+
+  <div class="main-wrapper">
+    <header class="dashboard-header">
+      <div class="header-title">
+        <h1>Analytics</h1>
+      </div>
+    </header>
+    
+    <main class="content-area">
+      <div class="content-container">
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-bottom: 24px;">
+          <div class="card" style="text-align: center; padding: 30px;">
+            <h3 style="color: var(--text-secondary); margin-bottom: 10px;">Total Prompts</h3>
+            <div id="statTotal" style="font-size: 48px; color: var(--accent); font-weight: bold;">0</div>
+          </div>
+          <div class="card" style="text-align: center; padding: 30px;">
+            <h3 style="color: var(--text-secondary); margin-bottom: 10px;">Public Prompts</h3>
+            <div id="statPublic" style="font-size: 48px; color: var(--success); font-weight: bold;">0</div>
+          </div>
+          <div class="card" style="text-align: center; padding: 30px;">
+            <h3 style="color: var(--text-secondary); margin-bottom: 10px;">Total Favorites</h3>
+            <div id="statFav" style="font-size: 48px; color: var(--warning); font-weight: bold;">0</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+          <div class="chart-card">
+            <h3 style="margin-bottom: 16px; color: var(--text-secondary); text-align: center;">Prompts by Category</h3>
+            <canvas id="categoryChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3 style="margin-bottom: 16px; color: var(--text-secondary); text-align: center;">Public vs Private</h3>
+            <canvas id="publicPrivateChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../../js/data/categories.js"></script>
+<script src="../../js/data/prompts.js"></script>
+<script src="../../js/utils.js"></script>
+<script src="../../js/components.js"></script>
+<script src="analytics.js"></script>
+</body>
+</html>

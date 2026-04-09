@@ -1,0 +1,113 @@
+function injectSidebar() {
+  const sidebarContainer = document.querySelector('.sidebar-container');
+  if (!sidebarContainer) return;
+
+  const currentPath = window.location.pathname;
+  const urlParams = new URLSearchParams(window.location.search);
+  const isPublicView = urlParams.get('view') === 'public' || currentPath.includes('public.html');
+  
+  // Calculate relative paths
+  const isAtRoot = !currentPath.includes('/pages/');
+  const pathPrefix = isAtRoot ? 'pages/' : '../';
+
+  let menuItems = [
+    { id: 'analytics', name: 'Analytics', icon: 'M4 11V2h3v9H4zm5 0V5h3v6H9zm-5 2h9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1z', link: 'analytics/analytics.html' },
+    { id: 'prompts', name: 'My Prompts', icon: 'M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z', link: 'prompts/prompts.html' },
+    { id: 'public', name: 'Public Library', icon: 'M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5.752c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V3.58z', link: 'public/public.html' },
+    { id: 'categories', name: 'Categories', icon: 'M1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h8A1.5 1.5 0 0 0 11 3.5v-2A1.5 1.5 0 0 0 9.5 0h-8zM1 1.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2zM1.5 7A1.5 1.5 0 0 0 0 8.5v2A1.5 1.5 0 0 0 1.5 12h8A1.5 1.5 0 0 0 11 10.5v-2A1.5 1.5 0 0 0 9.5 7h-8zM1 8.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2z', link: 'categories/categories.html' },
+    { id: 'settings', name: 'Settings', icon: 'M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z', link: 'settings/settings.html' }
+  ];
+
+  // If user came from "Explore Public Prompts", show ONLY Public Library and potentially login/back
+  if (isPublicView && !localStorage.getItem('loggedIn')) {
+    menuItems = menuItems.filter(item => item.id === 'public');
+  }
+
+  const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+
+  const sidebarHtml = `
+    <aside class="sidebar ${isCollapsed ? 'collapsed' : ''}">
+      <div class="sidebar-header">
+        <h2 class="sidebar-logo">Prompt<span>App</span></h2>
+        <button class="toggle-sidebar" onclick="toggleSidebar()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+          </svg>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        ${menuItems.map(item => {
+          const fullLink = isAtRoot ? 'pages/' + item.link : '../' + item.link;
+          const isActive = currentPath.includes(item.link.split('/')[0]);
+          return `
+            <a href="${fullLink}" class="${isActive ? 'active' : ''}" title="${item.name}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="${item.icon}"/>
+              </svg>
+              <span class="nav-text">${item.name}</span>
+            </a>
+          `;
+        }).join('')}
+      </nav>
+      <div class="sidebar-footer">
+        <button onclick="toggleTheme()" class="btn-sidebar-action" id="themeToggleBtn" title="Toggle Theme">🌙</button>
+        ${localStorage.getItem('loggedIn') 
+          ? `<button onclick="logout()" class="btn-sidebar-action logout" title="Logout">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+              </svg>
+              <span class="nav-text">Logout</span>
+            </button>`
+          : `<button onclick="window.location.href='${isAtRoot ? 'pages/' : '../'}auth/login.html'" class="btn-sidebar-action login" title="Login">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+              </svg>
+              <span class="nav-text">Login</span>
+            </button>`
+        }
+      </div>
+    </aside>
+  `;
+
+  sidebarContainer.innerHTML = sidebarHtml;
+  
+  // Add overlay if it doesn't exist
+  if (!document.querySelector('.sidebar-overlay')) {
+    const overlay = document.createElement('div');
+    overlay.className = 'sidebar-overlay';
+    overlay.onclick = toggleMobileMenu;
+    document.body.appendChild(overlay);
+  }
+
+  // Inject mobile toggle into header
+  const header = document.querySelector('.dashboard-header');
+  if (header && !header.querySelector('.mobile-nav-toggle')) {
+    const toggle = document.createElement('button');
+    toggle.className = 'mobile-nav-toggle';
+    toggle.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+      </svg>
+    `;
+    toggle.onclick = toggleMobileMenu;
+    header.prepend(toggle);
+  }
+
+  updateThemeIcon(document.documentElement.getAttribute("data-theme") || "dark");
+}
+
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const isCollapsed = sidebar.classList.toggle('collapsed');
+  localStorage.setItem('sidebarCollapsed', isCollapsed);
+}
+
+function toggleMobileMenu() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  sidebar.classList.toggle('mobile-active');
+  overlay.classList.toggle('active');
+}
+
+document.addEventListener('DOMContentLoaded', injectSidebar);

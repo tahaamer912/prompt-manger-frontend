@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Prompt - Prompt App</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+  <div class="sidebar-container"></div>
+
+  <div class="main-wrapper">
+    <header class="dashboard-header">
+      <div class="header-title">
+        <h1 id="viewTitle">Loading...</h1>
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <button id="copyBtn" class="btn btn-primary">Copy Prompt</button>
+        <a href="javascript:history.back()" class="btn btn-secondary">Go Back</a>
+      </div>
+    </header>
+    
+    <main class="content-area">
+      <div class="content-container">
+        <div class="card" style="padding: 40px; min-height: 300px;">
+          <div id="viewHeader" class="mb-3">
+             <div id="viewCategory" style="color: var(--accent); font-weight: 500;" class="mb-1"></div>
+             <div id="viewTags" class="tags-container"></div>
+          </div>
+          <div id="viewText" style="white-space: pre-wrap; line-height: 1.8; color: var(--text-primary); font-size: 16px; background: rgba(0,0,0,0.2); padding: 24px; border-radius: 8px; border: 1px solid var(--border);"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../../js/data/categories.js"></script>
+<script src="../../js/data/prompts.js"></script>
+<script src="../../js/utils.js"></script>
+<script src="../../js/components.js"></script>
+<script src="view.js"></script>
+</body>
+</html>
