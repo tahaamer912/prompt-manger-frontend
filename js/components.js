@@ -13,6 +13,7 @@ function injectSidebar() {
   let menuItems = [
     { id: 'analytics', name: 'Analytics', icon: 'M4 11V2h3v9H4zm5 0V5h3v6H9zm-5 2h9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1z', link: 'analytics/analytics.html' },
     { id: 'prompts', name: 'My Prompts', icon: 'M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z', link: 'prompts/prompts.html' },
+    { id: 'templates', name: 'Templates', icon: 'M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z M3 4.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z', link: 'templates/templates.html' },
     { id: 'public', name: 'Public Library', icon: 'M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5.752c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V3.58z', link: 'public/public.html' },
     { id: 'categories', name: 'Categories', icon: 'M1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h8A1.5 1.5 0 0 0 11 3.5v-2A1.5 1.5 0 0 0 9.5 0h-8zM1 1.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2zM1.5 7A1.5 1.5 0 0 0 0 8.5v2A1.5 1.5 0 0 0 1.5 12h8A1.5 1.5 0 0 0 11 10.5v-2A1.5 1.5 0 0 0 9.5 7h-8zM1 8.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2z', link: 'categories/categories.html' },
     { id: 'settings', name: 'Settings', icon: 'M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z', link: 'settings/settings.html' }
@@ -28,7 +29,7 @@ function injectSidebar() {
   const sidebarHtml = `
     <aside class="sidebar ${isCollapsed ? 'collapsed' : ''}">
       <div class="sidebar-header">
-        <h2 class="sidebar-logo">Prompt<span>App</span></h2>
+        <h2 class="sidebar-logo">AI<span> PromptManager</span></h2>
         <button class="toggle-sidebar" onclick="toggleSidebar()">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
@@ -50,6 +51,10 @@ function injectSidebar() {
         }).join('')}
       </nav>
       <div class="sidebar-footer">
+        <button onclick="openRoadmapPopup()" class="btn-popup-trigger" id="roadmapPopupBtn" title="Prompt Engineering Roadmap">
+          <span class="popup-btn-icon">🗺️</span>
+          <span class="nav-text">Roadmap</span>
+        </button>
         <button onclick="toggleTheme()" class="btn-sidebar-action" id="themeToggleBtn" title="Toggle Theme">🌙</button>
         ${localStorage.getItem('loggedIn') 
           ? `<button onclick="logout()" class="btn-sidebar-action logout" title="Logout">
@@ -71,7 +76,52 @@ function injectSidebar() {
   `;
 
   sidebarContainer.innerHTML = sidebarHtml;
-  
+
+  // Inject popup.css if not already added
+  if (!document.querySelector('link[href*="popup.css"]')) {
+    const isAtRootLevel = !window.location.pathname.includes('/pages/');
+    const cssPath = isAtRootLevel ? 'css/popup.css' : '../../css/popup.css';
+    const cssLink = document.createElement('link');
+    cssLink.rel = 'stylesheet';
+    cssLink.href = cssPath;
+    document.head.appendChild(cssLink);
+  }
+
+  // Inject the image popup modal if not already present
+  if (!document.getElementById('roadmapPopupOverlay')) {
+    const isAtRootLevel = !window.location.pathname.includes('/pages/');
+    const imgPath = isAtRootLevel
+      ? 'assets/images/prompt-engineering-roadmap.png'
+      : '../../assets/images/prompt-engineering-roadmap.png';
+
+    const popupHtml = `
+      <div id="roadmapPopupOverlay" class="img-popup-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="Prompt Engineering Roadmap">
+        <div class="img-popup-box">
+          <div class="img-popup-header">
+            <h4>
+              🗺️ Prompt Engineering Roadmap
+              <span class="popup-title-badge">Reference</span>
+            </h4>
+            <button class="img-popup-close" onclick="closeRoadmapPopup()" aria-label="Close popup">✕</button>
+          </div>
+          <img src="${imgPath}" alt="Prompt Engineering Roadmap" class="img-popup-image" loading="lazy">
+          <p class="img-popup-caption">Click outside or press ESC to close</p>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', popupHtml);
+
+    // Close on overlay background click
+    document.getElementById('roadmapPopupOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeRoadmapPopup();
+    });
+
+    // Close on ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeRoadmapPopup();
+    });
+  }
+
   // Add overlay if it doesn't exist
   if (!document.querySelector('.sidebar-overlay')) {
     const overlay = document.createElement('div');
@@ -108,6 +158,30 @@ function toggleMobileMenu() {
   const overlay = document.querySelector('.sidebar-overlay');
   sidebar.classList.toggle('mobile-active');
   overlay.classList.toggle('active');
+}
+
+function openRoadmapPopup() {
+  const overlay = document.getElementById('roadmapPopupOverlay');
+  if (overlay) {
+    overlay.style.display = '';       // remove inline hide
+    overlay.offsetHeight;             // force reflow so CSS transition works
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeRoadmapPopup() {
+  const overlay = document.getElementById('roadmapPopupOverlay');
+  if (overlay) {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    // Re-hide after the CSS fade-out transition completes (350ms)
+    setTimeout(() => {
+      if (!overlay.classList.contains('active')) {
+        overlay.style.display = 'none';
+      }
+    }, 400);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', injectSidebar);

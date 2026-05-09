@@ -137,3 +137,33 @@ initTheme();
 // Seeding check on every page load to ensure data exists
 getCategories();
 getPrompts();
+
+// ===== SHARE PROMPT =====
+function sharePrompt(relativeUrl) {
+  const a = document.createElement('a');
+  a.href = relativeUrl;
+  const fullUrl = a.href;
+  
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(fullUrl).then(() => {
+      showToast("Link copied to clipboard!");
+    }).catch(() => {
+      showToast("Failed to copy link", "error");
+    });
+  } else {
+    // Fallback for older/insecure contexts (or file:// protocol specifics)
+    const textArea = document.createElement("textarea");
+    textArea.value = fullUrl;
+    textArea.style.position = "fixed";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      showToast("Link copied to clipboard!");
+    } catch (err) {
+      showToast("Failed to copy link", "error");
+    }
+    document.body.removeChild(textArea);
+  }
+}
