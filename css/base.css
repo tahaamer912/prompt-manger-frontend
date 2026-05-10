@@ -1,0 +1,139 @@
+/* Modern Dashboard UI System - Base Styles */
+/* Variables, Reset, Typography & Utilities */
+
+:root {
+  /* Colors - Dark (Default) */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: rgba(30, 41, 59, 0.7);
+  --bg-input: rgba(15, 23, 42, 0.5);
+  --bg-header: rgba(15, 23, 42, 0.8);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --success: #10b981;
+  --warning: #facc15;
+  --danger: #ef4444;
+  --border: rgba(255, 255, 255, 0.1);
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 80px;
+  --header-height: 70px;
+  --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
+  --search-svg: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%2394a3b8" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>');
+}
+
+/* Light Theme Variables */
+html[data-theme="light"] {
+  --bg-primary: #f1f5f9;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-input: #f8fafc;
+  --bg-header: rgba(255, 255, 255, 0.8);
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --border: rgba(0, 0, 0, 0.1);
+  --search-svg: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%2364748b" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>');
+}
+
+html,
+body {
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Typography */
+h1 {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  line-height: 1.4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+/* Remove focus outline on mouse clicks for ALL interactive elements.
+   :focus-visible keeps the outline for keyboard-only navigation (accessibility). */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+/* Utility Classes */
+.mb-1 {
+  margin-bottom: 8px;
+}
+
+.mb-2 {
+  margin-bottom: 16px;
+}
+
+.mb-3 {
+  margin-bottom: 24px;
+}
+
+.mt-3 {
+  margin-top: 24px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.center-card {
+  margin: 0 auto;
+  width: 100%;
+}

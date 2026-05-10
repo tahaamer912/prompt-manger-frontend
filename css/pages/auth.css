@@ -1,0 +1,82 @@
+/* Auth Pages Styling */
+.auth-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent),
+              radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1), transparent),
+              var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-layout::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 320px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%231e293b' fill-opacity='1' d='M0,256L48,229.3C96,203,192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z'%3E%3C/path%3E%3C/svg%3E") no-repeat top;
+  background-size: cover;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.auth-container {
+  display: flex;
+  width: 900px;
+  max-width: 95%;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.auth-info {
+  flex: 1;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.auth-card {
+  flex: 1;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-title {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  margin-bottom: 8px;
+}
+
+.auth-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.auth-footer {
+  margin-top: 32px;
+  color: var(--text-secondary);
+}
+
+.auth-footer a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .auth-container { flex-direction: column; }
+  .auth-info { display: none; }
+}

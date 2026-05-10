@@ -5,7 +5,7 @@ function injectSidebar() {
   const currentPath = window.location.pathname;
   const urlParams = new URLSearchParams(window.location.search);
   const isPublicView = urlParams.get('view') === 'public' || currentPath.includes('public.html');
-  
+
   // Calculate relative paths
   const isAtRoot = !currentPath.includes('/pages/');
   const pathPrefix = isAtRoot ? 'pages/' : '../';
@@ -38,17 +38,23 @@ function injectSidebar() {
       </div>
       <nav class="sidebar-nav">
         ${menuItems.map(item => {
-          const fullLink = isAtRoot ? 'pages/' + item.link : '../' + item.link;
-          const isActive = currentPath.includes(item.link.split('/')[0]);
-          return `
-            <a href="${fullLink}" class="${isActive ? 'active' : ''}" title="${item.name}">
+    const fullLink = isAtRoot ? 'pages/' + item.link : '../' + item.link;
+    // Exact two-segment match: folder/filename must exactly equal the last two path segments.
+    // e.g. item.link = 'prompts/prompts.html'
+    //      URL path  = '/pages/prompts/prompts.html'  →  lastTwo = 'prompts/prompts.html'  ✓
+    //      URL path  = '/pages/prompts/create.html'   →  lastTwo = 'prompts/create.html'   ✗
+    const pathSegments = currentPath.toLowerCase().split('/').filter(Boolean);
+    const lastTwo = pathSegments.slice(-2).join('/');
+    const isActive = lastTwo === item.link.toLowerCase();
+    return `
+            <a href="${fullLink}" class="${isActive ? 'active' : ''}" title="${item.name}" ${isActive ? 'aria-current="page"' : ''}>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="${item.icon}"/>
               </svg>
               <span class="nav-text">${item.name}</span>
             </a>
           `;
-        }).join('')}
+  }).join('')}
       </nav>
       <div class="sidebar-footer">
         <button onclick="openRoadmapPopup()" class="btn-popup-trigger" id="roadmapPopupBtn" title="Prompt Engineering Roadmap">
@@ -56,26 +62,33 @@ function injectSidebar() {
           <span class="nav-text">Roadmap</span>
         </button>
         <button onclick="toggleTheme()" class="btn-sidebar-action" id="themeToggleBtn" title="Toggle Theme">🌙</button>
-        ${localStorage.getItem('loggedIn') 
-          ? `<button onclick="logout()" class="btn-sidebar-action logout" title="Logout">
+        ${localStorage.getItem('loggedIn')
+      ? `<button onclick="logout()" class="btn-sidebar-action logout" title="Logout">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
                 <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
               </svg>
               <span class="nav-text">Logout</span>
             </button>`
-          : `<button onclick="window.location.href='${isAtRoot ? 'pages/' : '../'}auth/login.html'" class="btn-sidebar-action login" title="Login">
+      : `<button onclick="window.location.href='${isAtRoot ? 'pages/' : '../'}auth/login.html'" class="btn-sidebar-action login" title="Login">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
               </svg>
               <span class="nav-text">Login</span>
             </button>`
-        }
+    }
       </div>
     </aside>
   `;
 
   sidebarContainer.innerHTML = sidebarHtml;
+
+  // Immediately blur any clicked button/link inside the sidebar so it never
+  // retains a "pressed" or focused appearance after a mouse click.
+  sidebarContainer.addEventListener('mouseup', function (e) {
+    const clickable = e.target.closest('button, a');
+    if (clickable) setTimeout(() => clickable.blur(), 0);
+  });
 
   // Inject popup.css if not already added
   if (!document.querySelector('link[href*="popup.css"]')) {
@@ -112,12 +125,12 @@ function injectSidebar() {
     document.body.insertAdjacentHTML('beforeend', popupHtml);
 
     // Close on overlay background click
-    document.getElementById('roadmapPopupOverlay').addEventListener('click', function(e) {
+    document.getElementById('roadmapPopupOverlay').addEventListener('click', function (e) {
       if (e.target === this) closeRoadmapPopup();
     });
 
     // Close on ESC key
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeRoadmapPopup();
     });
   }

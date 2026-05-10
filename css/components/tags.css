@@ -1,0 +1,17 @@
+/* Tags */
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.tags-container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
