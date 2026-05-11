@@ -1,0 +1,47 @@
+/* Analytics Page Styles */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 30px;
+}
+
+.stat-card h3 {
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.stat-number {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+#statTotal {
+  color: var(--accent);
+}
+
+#statPublic {
+  color: var(--success);
+}
+
+#statFav {
+  color: var(--warning);
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.chart-card h3 {
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  text-align: center;
+}

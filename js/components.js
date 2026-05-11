@@ -6,7 +6,7 @@ function injectSidebar() {
   const urlParams = new URLSearchParams(window.location.search);
   const isPublicView = urlParams.get('view') === 'public' || currentPath.includes('public.html');
 
-  // Calculate relative paths
+
   const isAtRoot = !currentPath.includes('/pages/');
   const pathPrefix = isAtRoot ? 'pages/' : '../';
 
@@ -19,7 +19,6 @@ function injectSidebar() {
     { id: 'settings', name: 'Settings', icon: 'M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z', link: 'settings/settings.html' }
   ];
 
-  // If user came from "Explore Public Prompts", show ONLY Public Library and potentially login/back
   if (isPublicView && !localStorage.getItem('loggedIn')) {
     menuItems = menuItems.filter(item => item.id === 'public');
   }
@@ -39,10 +38,6 @@ function injectSidebar() {
       <nav class="sidebar-nav">
         ${menuItems.map(item => {
     const fullLink = isAtRoot ? 'pages/' + item.link : '../' + item.link;
-    // Exact two-segment match: folder/filename must exactly equal the last two path segments.
-    // e.g. item.link = 'prompts/prompts.html'
-    //      URL path  = '/pages/prompts/prompts.html'  →  lastTwo = 'prompts/prompts.html'  ✓
-    //      URL path  = '/pages/prompts/create.html'   →  lastTwo = 'prompts/create.html'   ✗
     const pathSegments = currentPath.toLowerCase().split('/').filter(Boolean);
     const lastTwo = pathSegments.slice(-2).join('/');
     const isActive = lastTwo === item.link.toLowerCase();
@@ -82,15 +77,11 @@ function injectSidebar() {
   `;
 
   sidebarContainer.innerHTML = sidebarHtml;
-
-  // Immediately blur any clicked button/link inside the sidebar so it never
-  // retains a "pressed" or focused appearance after a mouse click.
   sidebarContainer.addEventListener('mouseup', function (e) {
     const clickable = e.target.closest('button, a');
     if (clickable) setTimeout(() => clickable.blur(), 0);
   });
 
-  // Inject popup.css if not already added
   if (!document.querySelector('link[href*="popup.css"]')) {
     const isAtRootLevel = !window.location.pathname.includes('/pages/');
     const cssPath = isAtRootLevel ? 'css/popup.css' : '../../css/popup.css';
@@ -100,7 +91,7 @@ function injectSidebar() {
     document.head.appendChild(cssLink);
   }
 
-  // Inject the image popup modal if not already present
+
   if (!document.getElementById('roadmapPopupOverlay')) {
     const isAtRootLevel = !window.location.pathname.includes('/pages/');
     const imgPath = isAtRootLevel
@@ -124,18 +115,17 @@ function injectSidebar() {
     `;
     document.body.insertAdjacentHTML('beforeend', popupHtml);
 
-    // Close on overlay background click
+
     document.getElementById('roadmapPopupOverlay').addEventListener('click', function (e) {
       if (e.target === this) closeRoadmapPopup();
     });
 
-    // Close on ESC key
+
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeRoadmapPopup();
     });
   }
 
-  // Add overlay if it doesn't exist
   if (!document.querySelector('.sidebar-overlay')) {
     const overlay = document.createElement('div');
     overlay.className = 'sidebar-overlay';
@@ -143,7 +133,6 @@ function injectSidebar() {
     document.body.appendChild(overlay);
   }
 
-  // Inject mobile toggle into header
   const header = document.querySelector('.dashboard-header');
   if (header && !header.querySelector('.mobile-nav-toggle')) {
     const toggle = document.createElement('button');
@@ -176,8 +165,7 @@ function toggleMobileMenu() {
 function openRoadmapPopup() {
   const overlay = document.getElementById('roadmapPopupOverlay');
   if (overlay) {
-    overlay.style.display = '';       // remove inline hide
-    overlay.offsetHeight;             // force reflow so CSS transition works
+    overlay.style.display = '';
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -188,7 +176,6 @@ function closeRoadmapPopup() {
   if (overlay) {
     overlay.classList.remove('active');
     document.body.style.overflow = '';
-    // Re-hide after the CSS fade-out transition completes (350ms)
     setTimeout(() => {
       if (!overlay.classList.contains('active')) {
         overlay.style.display = 'none';
