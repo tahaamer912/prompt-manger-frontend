@@ -1,5 +1,5 @@
 let currentPage = 1;
-const ITEMS_PER_PAGE = 5; // Slightly smaller for list items
+const ITEMS_PER_PAGE = 5; 
 
 function loadCategoriesUI(page = 1) {
   currentPage = page;
@@ -83,7 +83,7 @@ function deleteCategory(cat) {
     let cats = getCategories().filter(c => c !== cat);
     saveCategories(cats);
 
-    // Update prompts using this category
+    
     let prompts = getPrompts();
     prompts = prompts.map(p => {
       if (p.category === cat) p.category = "Other";

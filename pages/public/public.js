@@ -76,7 +76,7 @@ function renderPagination(totalItems) {
   `;
 
   for (let i = 1; i <= totalPages; i++) {
-    // Simple pagination logic
+    
     if (totalPages > 7) {
       if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
         html += `<button onclick="changePage(${i})" class="page-btn ${i === currentPage ? 'active' : ''}">${i}</button>`;
@@ -98,7 +98,7 @@ function renderPagination(totalItems) {
 
 function changePage(page) {
   loadPublicPrompts(page);
-  // Optional: scroll back to top of container
+  
   document.querySelector('.content-area')?.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -113,7 +113,7 @@ function copyText(text) {
 }
 
 function loadFilters() {
-  // Get unique categories from public prompts
+  
   const prompts = getPrompts();
   const cats = [...new Set(prompts.filter(p => p.public).map(p => p.category || 'Other'))];
 

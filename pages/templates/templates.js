@@ -1,4 +1,4 @@
-// ===== MOCK TEMPLATES DATA =====
+
 const SEED_TEMPLATES = [
   {
     id: "tpl-1",
@@ -50,7 +50,7 @@ const SEED_TEMPLATES = [
   }
 ];
 
-// ===== STATE MANAGEMENT =====
+
 let currentPage = 1;
 const ITEMS_PER_PAGE = 4;
 let activeTagFilter = "";
@@ -58,7 +58,7 @@ let modalTags = [];
 let activeUseTemplate = null;
 let placeholderValues = {};
 
-// Get templates from localStorage (merging seed data if empty)
+
 function getTemplates() {
   let templates = JSON.parse(localStorage.getItem("prompt_templates"));
   if (!templates || !Array.isArray(templates) || templates.length === 0) {
@@ -72,7 +72,7 @@ function saveTemplates(templates) {
   localStorage.setItem("prompt_templates", JSON.stringify(templates));
 }
 
-// Helper for escaping HTML but preserving newlines
+
 function safeEscape(unsafe) {
   if (!unsafe) return "";
   return unsafe
@@ -83,7 +83,7 @@ function safeEscape(unsafe) {
     .replace(/'/g, "&#039;");
 }
 
-// ===== FILTER & RENDER =====
+
 function filterTemplates(page = 1) {
   currentPage = page;
   const templates = getTemplates();
@@ -126,7 +126,7 @@ function filterTemplates(page = 1) {
   const paginated = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   grid.innerHTML = paginated.map(t => {
-    // Escape HTML to prevent injection and keep structure
+    
     const escapedPrompt = safeEscape(t.prompt);
     const jsonPreviewObj = {
       id: t.id,
@@ -227,7 +227,7 @@ function changePage(page) {
   document.querySelector('.content-area')?.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ===== ACTIONS =====
+
 function copyTemplatePrompt(id) {
   const templates = getTemplates();
   const t = templates.find(tpl => tpl.id === id);
@@ -246,7 +246,7 @@ function copyTemplateJSON(id) {
     navigator.clipboard.writeText(jsonString).then(() => {
       showToast("Template JSON data copied!");
       
-      // Inject visual copy badge
+      
       const card = document.getElementById(`card-${id}`);
       if (card && !card.querySelector('.copy-success-badge')) {
         const badge = document.createElement('div');
@@ -259,7 +259,7 @@ function copyTemplateJSON(id) {
   }
 }
 
-// ===== TAG FILTERS =====
+
 function loadTagsFilter() {
   const templates = getTemplates();
   const allTags = new Set();
@@ -285,9 +285,9 @@ function setTagFilter(tag) {
   filterTemplates(1);
 }
 
-// ===== DROPDOWNS =====
+
 function loadDropdowns() {
-  // Load categories into Filters dropdown
+  
   const cats = getCategories();
   const selectFilter = document.getElementById("categoryFilter");
   if (selectFilter) {
@@ -300,7 +300,7 @@ function loadDropdowns() {
     });
   }
 
-  // Load categories into Add Template Modal select dropdown
+  
   const selectModal = document.getElementById("templateCategory");
   if (selectModal) {
     selectModal.innerHTML = '';
@@ -313,7 +313,7 @@ function loadDropdowns() {
   }
 }
 
-// ===== MODAL SYSTEM =====
+
 function openModal(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {
@@ -330,7 +330,7 @@ function closeModal(modalId) {
   }
 }
 
-// --- Add Template Modal ---
+
 function openAddTemplateModal() {
   modalTags = [];
   renderModalTags();
@@ -342,7 +342,7 @@ function closeAddTemplateModal() {
   closeModal("addTemplateModal");
 }
 
-// Tags input interactions
+
 document.getElementById("tagsInput")?.addEventListener("keydown", e => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -371,7 +371,7 @@ function removeModalTag(tag) {
   renderModalTags();
 }
 
-// Submit Add Template
+
 document.getElementById("addTemplateForm")?.addEventListener("submit", e => {
   e.preventDefault();
   
@@ -395,12 +395,12 @@ document.getElementById("addTemplateForm")?.addEventListener("submit", e => {
   closeAddTemplateModal();
   showToast("Template created successfully!");
   
-  // Re-render
+  
   loadTagsFilter();
   filterTemplates(1);
 });
 
-// --- Use Template Modal ---
+
 function extractPlaceholders(text) {
   const matches = text.match(/\[[^\]]+\]/g) || [];
   return [...new Set(matches.map(m => m.slice(1, -1)))];
@@ -472,7 +472,7 @@ function copyCompiledPrompt() {
   }
 }
 
-// ===== INITIAL LOAD =====
+
 document.addEventListener('DOMContentLoaded', () => {
   loadDropdowns();
   loadTagsFilter();

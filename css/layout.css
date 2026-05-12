@@ -1,4 +1,4 @@
-/* Layout: Dashboard System */
+
 .dashboard-layout {
   display: flex;
   height: 100vh;
@@ -137,7 +137,7 @@
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-/* Prevent any sidebar button/link from retaining a "pressed" look after click */
+
 .sidebar button:focus,
 .sidebar a:focus {
   outline: none;
@@ -191,7 +191,7 @@
   color: white;
 }
 
-/* Sidebar trigger button (e.g. Roadmap button) */
+
 .btn-popup-trigger {
   display: flex;
   align-items: center;
@@ -318,7 +318,7 @@ html[data-theme="light"] .btn-popup-trigger:hover {
   flex-direction: column;
 }
 
-/* Mobile Navigation */
+
 .mobile-nav-toggle {
   display: none;
   background: none;
@@ -344,7 +344,7 @@ html[data-theme="light"] .btn-popup-trigger:hover {
   pointer-events: auto;
 }
 
-/* Responsive Layout */
+
 @media (max-width: 1024px) {
   --sidebar-width: 200px;
 }

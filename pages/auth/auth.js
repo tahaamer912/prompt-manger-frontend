@@ -1,4 +1,4 @@
-// Register logic
+
 document.getElementById("registerForm")?.addEventListener("submit", e => {
   e.preventDefault();
 
@@ -15,7 +15,7 @@ document.getElementById("registerForm")?.addEventListener("submit", e => {
   }, 1000);
 });
 
-// Login logic
+
 document.getElementById("loginForm")?.addEventListener("submit", e => {
   e.preventDefault();
 

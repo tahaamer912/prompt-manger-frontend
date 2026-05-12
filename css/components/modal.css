@@ -1,4 +1,4 @@
-/* Modal Component Styles */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -21,7 +21,7 @@
   pointer-events: auto;
 }
 
-/* Modal box styled with glassmorphism */
+
 .modal-box {
   background: var(--bg-secondary);
   border: 1px solid var(--border);

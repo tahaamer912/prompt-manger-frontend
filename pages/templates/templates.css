@@ -1,7 +1,7 @@
-/* Template-specific styles */
-/* (Modal base styles are in css/components/modal.css) */
 
-/* JSON preview styling matching dark aesthetics */
+
+
+
 .json-preview {
   background: var(--bg-input);
   border: 1px solid var(--border);
@@ -17,7 +17,7 @@
   text-align: left;
 }
 
-/* Tag style inside tag-input */
+
 .tag-badge {
   display: inline-flex;
   align-items: center;
@@ -47,7 +47,7 @@
   color: var(--danger);
 }
 
-/* Filter badge/tags list styles */
+
 .filter-tags-list {
   display: flex;
   gap: 8px;
@@ -79,7 +79,7 @@
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-/* Copy feedback overlay */
+
 .copy-success-badge {
   position: absolute;
   top: 16px;

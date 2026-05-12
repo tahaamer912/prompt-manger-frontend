@@ -157,7 +157,7 @@ function loadFilters() {
   });
 }
 
-// Initial load
+
 document.addEventListener('DOMContentLoaded', () => {
   loadFilters();
   loadPrompts();
